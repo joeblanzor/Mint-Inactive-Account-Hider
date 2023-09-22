@@ -1,0 +1,19 @@
+Privacy Policy for Mint Inactive Account Hider
+
+This extension is free, open-source, and open to modification by the public. It does not collect, store, or transmit any personal information or user data.
+
+Open Source and Modification:
+
+This extension is open-source, and its source code can be freely accessed and modified by the public.
+
+Data Collection:
+
+"Mint Inactive Account Hider" does not collect any user data or personal information.
+
+Third-Party Services:
+
+This extension does not utilize any third-party services that would involve data collection or sharing.
+
+Contact:
+
+If you have any questions or concerns about this privacy policy, you can contact us at joeblanzor@gmail.com
