@@ -1,11 +1,12 @@
 {
     "manifest_version": 3,
     "name": "Mint Inactive Account Hider",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Hides Inactive Mint cards, accounts, and any accounts which don't have any active cards or accounts.",
     "permissions": [
       "activeTab",
-      "https://mint.intuit.com/settings"
+      "storage",
+      "scripting"
     ],
     "action": {
       "default_popup": "popup.html",
