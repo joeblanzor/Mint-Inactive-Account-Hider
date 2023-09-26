@@ -44,9 +44,9 @@ function toggleInactiveCards(element, searchString, regexPattern) {
 }
 
 function toggleInactiveInstitutions(ancestorPattern, descendantPattern){
-  parentPattern = "div[class^='" + ancestorPattern + "']";
-  childPattern = "div[class^='" + descendantPattern + "']";
-  parents = document.querySelectorAll(parentPattern);
+  ancestorPattern = "div[class^='" + ancestorPattern + "']";
+  descendantPattern = "div[class^='" + descendantPattern + "']";
+  parents = document.querySelectorAll(ancestorPattern);
   hideElementsWithAllHiddenDescendants(parents);
   
 
@@ -133,7 +133,69 @@ chrome.storage.local.get('enable', function(data) {
 // }
 
 
+function demo(){
+  var entityMap = {
+    img: {
+      pattern: 'div[class^=Accountsstyle__AccountHeader-] > img',
+      type: 'img',
+      content: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Citi.svg/200px-Citi.svg.png'
+    },
+    bankText: {
+      pattern: 'div[class^=Accountsstyle__AccountHeader-] > span > strong',
+      content: "Example Bank - Citi"
+    },
+    amount: {
+      pattern: 'div[class^=Accountsstyle__AccountItemSummaryName-] > span > strong',
+      content: 'CREDIT CARD (...1234)'
+    },
+    card: {
+      pattern: 'div[class^=Accountsstyle__AccountItemSummaryValue-] > span > strong',
+      content: 100.00
+    }
+  }
+  console.log('Demo called');
+  document.querySelectorAll('div[class^=Accountsstyle__AccountStatusContainer-]').forEach((statusElement)=>{statusElement.remove();});
+  document.querySelectorAll('div[class^=ProfileCompletenessstyle__ProfileCompletenessContainer-]').forEach((statusElement)=>{statusElement.remove();});
+  Object.entries(entityMap).forEach(([key, entity]) => {
+    console.log('Entity: ', entity);
+    console.log('Entity pattern: ', entity.pattern);
+    elements = document.querySelectorAll(entity.pattern);
+    console.log('demo elements', elements);
+    Object.entries(elements).forEach(([key, element]) => {
+      if (entity.type == 'img'){
+        element.src = entity.content;
+        console.log('Demo img src', element.src);
+      }
+      else {
+        if (element.textContent != "Important:Inactive"){
+          console.log('Changing content from ', element.textContent, ' to ', entity.content);
+          element.textContent = entity.content;
+        }
+        console.log('Demo img content', element.textContent);
+      }
+    });
+  });
+}
 
+var bodyCondition = setInterval(function() {
+  let body = document.getElementsByTagName('body');
+  if (body.length > 0){
+    console.log('hiding body');
+    body[0].style.display = 'None';
+    clearInterval(bodyCondition);
+  }
+}, 50);
+
+var existCondition = setInterval(function() {
+  var parentElements = document.querySelectorAll("div[class^='" + parentPattern + "']");
+  var childElements = document.querySelectorAll("div[class^='" + childPattern + "']");
+  if (parentElements.length > 0 && childElements.length > 0) {
+    console.log("JRLog Interval matched");
+    clearInterval(existCondition);
+    demo();
+    document.getElementsByTagName('body')[0].style.display = 'block';
+  }
+}, 100);
 
 
 
